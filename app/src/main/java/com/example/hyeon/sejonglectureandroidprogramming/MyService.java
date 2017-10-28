@@ -58,7 +58,7 @@ public class MyService extends Service {
             Log.d(TAG, "Waiting " + i + " seconds.");
         } // for
 
-        Intent showIntent = new Intent(getApplicationContext(), MainActivity.class);
+        Intent showIntent = new Intent(getApplicationContext(), ServiceActivity.class);
         showIntent.addFlags(    Intent.FLAG_ACTIVITY_NEW_TASK |
                                 Intent.FLAG_ACTIVITY_SINGLE_TOP |
                                 Intent.FLAG_ACTIVITY_CLEAR_TOP);
