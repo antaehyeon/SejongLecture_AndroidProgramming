@@ -32,6 +32,7 @@ public class BroadcastActivity extends AppCompatActivity {
             } // onClick
         });
 
+        // Broadcast에서 받은 Intent를 처리하는 부분 : getIntent()
         Intent passedIntent = getIntent();
         processIntent(passedIntent);
 

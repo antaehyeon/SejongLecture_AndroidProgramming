@@ -32,6 +32,7 @@ public class ServiceActivity extends AppCompatActivity {
             } // onClick
         }); // setOnClickListener
 
+        // Service에서 전달된 Intent를 처리하는 부분
         Intent passedIntent = getIntent();
         processIntent(passedIntent);
 
