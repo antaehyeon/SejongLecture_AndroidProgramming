@@ -1,5 +1,6 @@
 package com.example.hyeon.sejonglectureandroidprogramming;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -11,12 +12,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView alertTextView;
+    TextView alertTextView,
+             seekBarText;
 
     EditText editText,
              editText2;
@@ -24,13 +28,24 @@ public class MainActivity extends AppCompatActivity {
     Button  button,
             button2,
             snackBarButton,
-            alertButton;
+            alertButton,
+            showProgressButton,
+            closeProgressButton;
+
+    ProgressDialog dialog;
+
+    private SeekBar seekBar;
+    private int brightness = 100;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        // (Custom) Toast 구현 부분
         editText = (EditText) findViewById(R.id.editText);
         editText2 = (EditText) findViewById(R.id.editText2);
 
@@ -75,6 +90,8 @@ public class MainActivity extends AppCompatActivity {
             } // onClick
         }); // button setOnClickListener
 
+
+        // 스낵바 구현 부분
         snackBarButton = (Button) findViewById(R.id.btn_snackBar);
         snackBarButton.setOnClickListener(new Button.OnClickListener() {
             @Override
@@ -83,6 +100,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        // Alert Dialog 구현 부분
         alertTextView = (TextView) findViewById(R.id.txt_showAlertResult);
         alertButton = (Button) findViewById(R.id.btn_showAlert);
         alertButton.setOnClickListener(new Button.OnClickListener() {
@@ -121,6 +140,35 @@ public class MainActivity extends AppCompatActivity {
                 dialog.show();
             } // onClick
         }); // alertButton onClickListener
+
+
+        // 프로그레스 바 구현 부분
+        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar.setIndeterminate(false);
+        progressBar.setMax(100);
+        progressBar.setProgress(80);
+
+        showProgressButton = (Button) findViewById(R.id.btn_showProgressBar);
+        showProgressButton.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog = new ProgressDialog(MainActivity.this);
+                dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                dialog.setMessage("데이터를 확인하는 중입니다");
+                dialog.show();
+            }
+        });
+
+        closeProgressButton = (Button) findViewById(R.id.btn_closeProgressBar);
+        closeProgressButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (dialog != null) {
+                    dialog.dismiss();
+                } // if
+            } // onClick
+        }); // closeProgressButton
+
 
 
 
