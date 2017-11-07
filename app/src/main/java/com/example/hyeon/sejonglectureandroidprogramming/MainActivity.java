@@ -1,7 +1,9 @@
 package com.example.hyeon.sejonglectureandroidprogramming;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -80,6 +82,45 @@ public class MainActivity extends AppCompatActivity {
                 Snackbar.make(view, "스낵바입니다", Snackbar.LENGTH_LONG).show();
             }
         });
+
+        alertTextView = (TextView) findViewById(R.id.txt_showAlertResult);
+        alertButton = (Button) findViewById(R.id.btn_showAlert);
+        alertButton.setOnClickListener(new Button.OnClickListener() {
+            @Override
+
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle("안내");
+                builder.setMessage("종료하시겠습니까?");
+                builder.setIcon(android.R.drawable.ic_dialog_alert);
+                builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        String message = "예 버튼이 눌렸습니다.";
+                        alertTextView.setText(message);
+                    } // onClick
+                }); // setPositiveButton
+
+                builder.setNeutralButton("취소", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        String message = "취소 버튼이 눌렸습니다.";
+                        alertTextView.setText(message);
+                    } // onClick
+                }); // setNeutralButton
+
+                builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        String message = "아니오 버튼이 눌렸습니다";
+                        alertTextView.setText(message);
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            } // onClick
+        }); // alertButton onClickListener
 
 
 
