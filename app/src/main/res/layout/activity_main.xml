@@ -41,8 +41,13 @@
             android:layout_height="wrap_content"
             android:text="모양 바꿔 띄우기"
             android:textSize="20dp" />
-
-
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_snackBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="스낵바 띄우기"
+        android:textSize="20dp"/>
 
 </LinearLayout>

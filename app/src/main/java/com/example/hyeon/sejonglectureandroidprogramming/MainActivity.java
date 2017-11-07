@@ -1,6 +1,7 @@
 package com.example.hyeon.sejonglectureandroidprogramming;
 
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -13,10 +14,15 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    EditText editText;
-    EditText editText2;
-    Button button;
-    Button button2;
+    TextView alertTextView;
+
+    EditText editText,
+             editText2;
+
+    Button  button,
+            button2,
+            snackBarButton,
+            alertButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +71,16 @@ public class MainActivity extends AppCompatActivity {
                 toast.setView(layout);
                 toast.show();
             } // onClick
-        }); //
+        }); // button setOnClickListener
+
+        snackBarButton = (Button) findViewById(R.id.btn_snackBar);
+        snackBarButton.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "스낵바입니다", Snackbar.LENGTH_LONG).show();
+            }
+        });
+
 
 
     } // onCreate
