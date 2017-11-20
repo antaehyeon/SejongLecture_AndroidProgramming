@@ -50,6 +50,14 @@ public class CardGameView extends View {
             for (int x = 0; x < 3; x++) {
                 canvas.drawBitmap(m_CardBackSide, 35 + x * 90,
                         150 + y * 130, null);
+
+                // 색상 값에 따라 다른 이미지 그려주기
+                if(m_Shuffle[x][y].m_Color == Card.IMG_RED)
+                    canvas.drawBitmap(m_Card_Red, 35 + x * 90, 150 + y * 130, null);
+                else if (m_Shuffle[x][y].m_Color == Card.IMG_GREEN)
+                    canvas.drawBitmap(m_Card_Green, 35 + x * 90, 150 + y * 130, null);
+                else if (m_Shuffle[x][y].m_Color == Card.IMG_RED)
+                    canvas.drawBitmap(m_Card_Blue, 35+x*90, 150+y*130, null);
             } // for x
         } // for y
     } // onDraw
