@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Rect;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -20,6 +21,12 @@ public class CardGameView extends View {
            m_Card_Blue;
 
     Card m_Shuffle[][];
+
+    // 1-1. 게임 상태 변수 추가
+    public static final int STATE_READY = 0;
+    public static final int STATE_GAME = 1;
+    public static final int STATE_END = 2;
+    private int m_State = STATE_READY;
 
     public CardGameView(Context context) {
         super(context);
@@ -98,9 +105,27 @@ public class CardGameView extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        startGame(); // 게임을 시작합니다.
-
+        if(m_State == STATE_READY) {
+            startGame(); // 게임을 시작합니다.
+            m_State = STATE_GAME;
+        } else if (m_State == STATE_GAME) {
+            // 카드 뒤집는 처리
+            int px = (int)event.getX();
+            int py = (int)event.getY();
+            for (int y = 0; y < 2; y++) {
+                for (int x = 0; x < 3; x++ ) {
+                    // 각 카드의 박스 값을 생성
+                    Rect box_card = new Rect(35 + x * 90, 150 + y * 130,
+                            35 + x * 90 + 80, 150 + y * 130 + 115);
+                    if (box_card.contains(px, py)) // 선택된 카드 뒤집기
+                        m_Shuffle[x][y].m_State = Card.CARD_PLAYEROPEN;
+                } // for x
+            } // for y
+        } else if (m_State == STATE_END) {
+            m_State = STATE_READY;
+        }
         invalidate(); // 화면을 갱신합니다.
-        return super.onTouchEvent(event);
+        // return super.onTouchEvent(event);
+        return true;
     }
 } // CardGameView Class
