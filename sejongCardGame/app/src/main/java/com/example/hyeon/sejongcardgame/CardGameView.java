@@ -28,6 +28,10 @@ public class CardGameView extends View {
     public static final int STATE_END = 2;
     private int m_State = STATE_READY;
 
+    // 짝 맞추기 비교를 위한 변수
+    private Card m_SelectedCard_1 = null;
+    private Card m_SelectedCard_2 = null;
+
     public CardGameView(Context context) {
         super(context);
         // 2. 멤버 변수 설정
@@ -117,8 +121,22 @@ public class CardGameView extends View {
                     // 각 카드의 박스 값을 생성
                     Rect box_card = new Rect(35 + x * 90, 150 + y * 130,
                             35 + x * 90 + 80, 150 + y * 130 + 115);
-                    if (box_card.contains(px, py)) // 선택된 카드 뒤집기
-                        m_Shuffle[x][y].m_State = Card.CARD_PLAYEROPEN;
+                    if (box_card.contains(px, py)) { // 선택된 카드 뒤집기
+                        // (x, y)에 위치한 카드가 선택되었다.
+                        if(m_Shuffle[x][y].m_State != Card.CARD_MATCHED) {
+                            // 맞춘 카드는 뒤집을 필요가 없습니다.
+                            if(m_SelectedCard_1 == null) { // 첫 카드를 뒤집는다면
+                                m_SelectedCard_1 = m_Shuffle[x][y];
+                                m_SelectedCard_1.m_State = Card.CARD_PLAYEROPEN;
+                            } // if
+                            else {
+                               if (m_SelectedCard_1 != m_Shuffle[x][y]) { // 중복 뒤집기 방지
+                                   m_SelectedCard_2 = m_Shuffle[x][y];
+                                   m_SelectedCard_2.m_State = Card.CARD_PLAYEROPEN;
+                               } // if
+                            } // else
+                        } // if
+                    } // if box_card.contains(px, py)
                 } // for x
             } // for y
         } else if (m_State == STATE_END) {
@@ -127,5 +145,30 @@ public class CardGameView extends View {
         invalidate(); // 화면을 갱신합니다.
         // return super.onTouchEvent(event);
         return true;
-    }
+    } // onTouchEvent
+
+    public void checkMatch() {
+        // 두 카드 중 하나라도 선택이 안 되었다면 비교할 필요가 없습니다.
+        if (m_SelectedCard_1 == null || m_SelectedCard_2 == null) return;
+        // 두 카드의 색상을 비교합니다.
+        if (m_SelectedCard_1.m_Color == m_SelectedCard_2.m_Color) {
+            // 두 카드의 색상이 같으면 두 카드를 맞춘 상태로 바꿉니다
+            m_SelectedCard_1.m_State = Card.CARD_MATCHED;
+            m_SelectedCard_2.m_State = Card.CARD_MATCHED;
+            // 다시 선택할 수 있도록 null로 설정
+            m_SelectedCard_1 = null;
+            m_SelectedCard_2 = null;
+        } // if
+        else {
+            // 두 카드의 색상이 다른 경우 두 카드를 이전처럼 뒷면으로 돌려줍니다
+            m_SelectedCard_1.m_State = Card.CARD_CLOSE;
+            m_SelectedCard_2.m_State = Card.CARD_CLOSE;
+            // 다시 선택할 수 있도록 null로 설정
+            m_SelectedCard_1 = null;
+            m_SelectedCard_2 = null;
+        } // else
+        invalidate();
+    } // checkMatch
+
+
 } // CardGameView Class
