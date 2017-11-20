@@ -13,7 +13,12 @@ import android.view.View;
 public class CardGameView extends View {
     // 1. 멤버 변수 추가
     Bitmap m_BackGroundImage,
-           m_CardBackSide;
+           m_CardBackSide,
+           m_Card_Red,
+           m_Card_Green,
+           m_Card_Blue;
+
+    Card m_Shuffle[][];
 
     public CardGameView(Context context) {
         super(context);
@@ -22,6 +27,17 @@ public class CardGameView extends View {
                 R.drawable.background, null);
         m_CardBackSide = BitmapFactory.decodeResource(getResources(),
                 R.drawable.backside, null);
+
+        m_Card_Red = BitmapFactory.decodeResource(getResources(),
+                R.drawable.android_front_red, null);
+        m_Card_Green = BitmapFactory.decodeResource(getResources(),
+                R.drawable.android_front_red, null);
+        m_Card_Blue = BitmapFactory.decodeResource(getResources(),
+                R.drawable.android_front_red, null);
+
+        // 화면에 표시할 카드만큼 할당 (3x2)
+        m_Shuffle = new Card[3][2];
+
     } // constructor
 
     @Override

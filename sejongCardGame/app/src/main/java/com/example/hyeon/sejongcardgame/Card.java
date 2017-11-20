@@ -24,5 +24,5 @@ public class Card {
         m_Color = _Color;
     } // Constructor
 
-    
+
 } // Card Class
