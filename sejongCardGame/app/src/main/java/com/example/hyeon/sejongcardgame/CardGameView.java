@@ -38,6 +38,8 @@ public class CardGameView extends View {
         // 화면에 표시할 카드만큼 할당 (3x2)
         m_Shuffle = new Card[3][2];
 
+        // 카드를 섞음
+        setCardShuffle();
     } // constructor
 
     @Override
@@ -51,4 +53,15 @@ public class CardGameView extends View {
             } // for x
         } // for y
     } // onDraw
+
+    public void setCardShuffle() {
+        // 각각의 색을 가진 카드들을 생성
+        // 랜덤으로 해야 하지만 일단 단순히 고정된 값으로
+        m_Shuffle[0][0] = new Card(Card.IMG_RED);
+        m_Shuffle[0][1] = new Card(Card.IMG_BLUE);
+        m_Shuffle[1][0] = new Card(Card.IMG_GREEN);
+        m_Shuffle[1][1] = new Card(Card.IMG_GREEN);
+        m_Shuffle[2][0] = new Card(Card.IMG_BLUE);
+        m_Shuffle[2][1] = new Card(Card.IMG_RED);
+    }
 } // CardGameView Class

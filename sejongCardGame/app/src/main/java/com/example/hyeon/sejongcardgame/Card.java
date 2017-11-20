@@ -11,9 +11,9 @@ public class Card {
     public static final int CARD_PLAYEROPEN = 2;
     public static final int CARD_MATCHED = 0;
 
-    private static final int IMG_RED = 1;
-    private static final int IMG_GREEN = 2;
-    private static final int IMG_BLUE = 3;
+    public static final int IMG_RED = 1;
+    public static final int IMG_GREEN = 2;
+    public static final int IMG_BLUE = 3;
 
     // 2. 카드 상태 멤버 변수 선언 및 초기화
     public int m_State,
