@@ -52,6 +52,10 @@ public class CardGameView extends View {
 
         // 카드를 섞음
         setCardShuffle();
+
+        // 짝맞추기를 검사하는 스레드 실행
+        CardGameThread _thread = new CardGameThread(this);
+        _thread.start();
     } // constructor
 
     @Override
@@ -160,6 +164,9 @@ public class CardGameView extends View {
             m_SelectedCard_2 = null;
         } // if
         else {
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) { }
             // 두 카드의 색상이 다른 경우 두 카드를 이전처럼 뒷면으로 돌려줍니다
             m_SelectedCard_1.m_State = Card.CARD_CLOSE;
             m_SelectedCard_2.m_State = Card.CARD_CLOSE;
@@ -167,7 +174,8 @@ public class CardGameView extends View {
             m_SelectedCard_1 = null;
             m_SelectedCard_2 = null;
         } // else
-        invalidate();
+        // invalidate(); // 스레드에서 사용하므로
+        postInvalidate();
     } // checkMatch
 
 
