@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.view.MotionEvent;
 import android.view.View;
 
 /**
@@ -57,7 +58,18 @@ public class CardGameView extends View {
                 else if (m_Shuffle[x][y].m_Color == Card.IMG_GREEN)
                     canvas.drawBitmap(m_Card_Green, 35 + x * 90, 150 + y * 130, null);
                 else if (m_Shuffle[x][y].m_Color == Card.IMG_RED)
-                    canvas.drawBitmap(m_Card_Blue, 35+x*90, 150+y*130, null);
+                    canvas.drawBitmap(m_Card_Blue, 35 + x * 90, 150 + y * 130, null);
+
+                // 카드 앞면을 그려야 하는 경우
+                if(m_Shuffle[x][y].m_State == Card.CARD_SHOW ||
+                    m_Shuffle[x][y].m_State == Card.CARD_PLAYEROPEN ||
+                    m_Shuffle[x][y].m_State == Card.CARD_MATCHED) {
+                    // 색상에 따라 카드 앞면 그리기
+                } // if
+                else { // 카드 뒷면을 그려야 하는 경우
+                    canvas.drawBitmap(m_CardBackSide, 35 + x * 90,
+                            150 + y * 130, null);
+                } // else
             } // for x
         } // for y
     } // onDraw
@@ -71,5 +83,24 @@ public class CardGameView extends View {
         m_Shuffle[1][1] = new Card(Card.IMG_GREEN);
         m_Shuffle[2][0] = new Card(Card.IMG_BLUE);
         m_Shuffle[2][1] = new Card(Card.IMG_RED);
+    }
+
+    public void startGame() {
+        m_Shuffle[0][0].m_State = Card.CARD_CLOSE;
+        m_Shuffle[0][1].m_State = Card.CARD_CLOSE;
+        m_Shuffle[1][0].m_State = Card.CARD_CLOSE;
+        m_Shuffle[1][1].m_State = Card.CARD_CLOSE;
+        m_Shuffle[2][0].m_State = Card.CARD_CLOSE;
+        m_Shuffle[2][1].m_State = Card.CARD_CLOSE;
+
+        invalidate(); // 화면을 갱신합니다.
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        startGame(); // 게임을 시작합니다.
+
+        invalidate(); // 화면을 갱신합니다.
+        return super.onTouchEvent(event);
     }
 } // CardGameView Class
