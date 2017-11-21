@@ -10,7 +10,11 @@ public class ImageExample extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(new com.example.hyeon.sejongcardgame.ImageView(this));
+//        setContentView(new com.example.hyeon.sejongcardgame.ImageView(this));
+
+//        setContentView(new CardGameView(this));
+
+        setContentView(new SoundExampleView(this));
 
 
 //        setContentView(R.layout.activity_image_example);
