@@ -12,9 +12,11 @@ public class ImageExample extends Activity {
         super.onCreate(savedInstanceState);
 //        setContentView(new com.example.hyeon.sejongcardgame.ImageView(this));
 
-//        setContentView(new CardGameView(this));
+        // CardGameView 그리기
+        setContentView(new CardGameView(this));
 
-        setContentView(new SoundExampleView(this));
+        // SoundExample 그리기
+        // setContentView(new SoundExampleView(this));
 
 
 //        setContentView(R.layout.activity_image_example);

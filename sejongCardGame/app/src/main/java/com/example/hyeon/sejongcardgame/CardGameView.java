@@ -4,9 +4,17 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Rect;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
+
+import java.lang.reflect.Array;
+import java.util.Random;
+import java.util.Vector;
 
 /**
  * Created by hyeon on 2017. 11. 20..
@@ -21,6 +29,8 @@ public class CardGameView extends View {
            m_Card_Blue;
 
     Card m_Shuffle[][];
+
+    Paint paint;
 
     // 1-1. 게임 상태 변수 추가
     public static final int STATE_READY = 0;
@@ -38,14 +48,14 @@ public class CardGameView extends View {
         m_BackGroundImage = BitmapFactory.decodeResource(getResources(),
                 R.drawable.background, null);
         m_CardBackSide = BitmapFactory.decodeResource(getResources(),
-                R.drawable.backside, null);
+                R.drawable.backside_resize, null);
 
         m_Card_Red = BitmapFactory.decodeResource(getResources(),
-                R.drawable.android_front_red, null);
+                R.drawable.android_front_red_resize, null);
         m_Card_Green = BitmapFactory.decodeResource(getResources(),
-                R.drawable.android_front_red, null);
+                R.drawable.android_resize, null);
         m_Card_Blue = BitmapFactory.decodeResource(getResources(),
-                R.drawable.android_front_red, null);
+                R.drawable.android_front_blue_resize, null);
 
         // 화면에 표시할 카드만큼 할당 (3x2)
         m_Shuffle = new Card[3][2];
@@ -60,20 +70,21 @@ public class CardGameView extends View {
 
     @Override
     public void onDraw(Canvas canvas) {
+
         // 3. 배경 이미지 그리기
         canvas.drawBitmap(m_BackGroundImage, 0, 0, null);
         for (int y = 0; y < 2; y++) {
             for (int x = 0; x < 3; x++) {
-                canvas.drawBitmap(m_CardBackSide, 35 + x * 90,
-                        150 + y * 130, null);
+                canvas.drawBitmap(m_CardBackSide, 190 + x * 240,
+                        1000 + y * 300, null);
 
                 // 색상 값에 따라 다른 이미지 그려주기
                 if(m_Shuffle[x][y].m_Color == Card.IMG_RED)
-                    canvas.drawBitmap(m_Card_Red, 35 + x * 90, 150 + y * 130, null);
+                    canvas.drawBitmap(m_Card_Red, 190 + x * 240, 1000 + y * 300, null);
                 else if (m_Shuffle[x][y].m_Color == Card.IMG_GREEN)
-                    canvas.drawBitmap(m_Card_Green, 35 + x * 90, 150 + y * 130, null);
-                else if (m_Shuffle[x][y].m_Color == Card.IMG_RED)
-                    canvas.drawBitmap(m_Card_Blue, 35 + x * 90, 150 + y * 130, null);
+                    canvas.drawBitmap(m_Card_Green, 190 + x * 240, 1000 + y * 300, null);
+                else if (m_Shuffle[x][y].m_Color == Card.IMG_BLUE)
+                    canvas.drawBitmap(m_Card_Blue, 190 + x * 240, 1000 + y * 300, null);
 
                 // 카드 앞면을 그려야 하는 경우
                 if(m_Shuffle[x][y].m_State == Card.CARD_SHOW ||
@@ -82,22 +93,45 @@ public class CardGameView extends View {
                     // 색상에 따라 카드 앞면 그리기
                 } // if
                 else { // 카드 뒷면을 그려야 하는 경우
-                    canvas.drawBitmap(m_CardBackSide, 35 + x * 90,
-                            150 + y * 130, null);
+                    canvas.drawBitmap(m_CardBackSide, 190 + x * 240,
+                            1000 + y * 300, null);
                 } // else
             } // for x
         } // for y
     } // onDraw
 
     public void setCardShuffle() {
-        // 각각의 색을 가진 카드들을 생성
-        // 랜덤으로 해야 하지만 일단 단순히 고정된 값으로
-        m_Shuffle[0][0] = new Card(Card.IMG_RED);
-        m_Shuffle[0][1] = new Card(Card.IMG_BLUE);
-        m_Shuffle[1][0] = new Card(Card.IMG_GREEN);
-        m_Shuffle[1][1] = new Card(Card.IMG_GREEN);
-        m_Shuffle[2][0] = new Card(Card.IMG_BLUE);
-        m_Shuffle[2][1] = new Card(Card.IMG_RED);
+        int index = 0;
+        Random random = new Random();
+
+        int[] array = {1,1,2,2,3,3};
+
+        Vector<Integer> vector = new Vector<Integer>(6);
+
+        while(true) {
+            int r = random.nextInt(6);
+            if (!vector.contains(r)) {
+                vector.addElement(r);
+            }
+
+            if (vector.size() == 6) break;
+        }
+
+        for (int x = 0; x < 3; x++) {
+            for (int y = 0; y < 2; y++) {
+                m_Shuffle[x][y] = new Card(array[vector.elementAt(index)]);
+                index++;
+            }
+        }
+
+//        // 각각의 색을 가진 카드들을 생성
+//        // 랜덤으로 해야 하지만 일단 단순히 고정된 값으로
+//        m_Shuffle[0][0] = new Card(Card.IMG_RED);
+//        m_Shuffle[0][1] = new Card(Card.IMG_BLUE);
+//        m_Shuffle[1][0] = new Card(Card.IMG_GREEN);
+//        m_Shuffle[1][1] = new Card(Card.IMG_GREEN);
+//        m_Shuffle[2][0] = new Card(Card.IMG_BLUE);
+//        m_Shuffle[2][1] = new Card(Card.IMG_RED);
     }
 
     public void startGame() {
@@ -120,11 +154,16 @@ public class CardGameView extends View {
             // 카드 뒤집는 처리
             int px = (int)event.getX();
             int py = (int)event.getY();
+
             for (int y = 0; y < 2; y++) {
                 for (int x = 0; x < 3; x++ ) {
                     // 각 카드의 박스 값을 생성
-                    Rect box_card = new Rect(35 + x * 90, 150 + y * 130,
-                            35 + x * 90 + 80, 150 + y * 130 + 115);
+//                    Rect box_card = new Rect(190 + x * 240, 1000 + y * 300,
+//                            190 + x * 240 + 80, 1000 + y * 300 + 115);
+
+                    Rect box_card = new Rect(190 + x * 240, 1000 + y * 300,
+                            190 + x * 240 + 200, 1000 + y * 300 + 300);
+
                     if (box_card.contains(px, py)) { // 선택된 카드 뒤집기
                         // (x, y)에 위치한 카드가 선택되었다.
                         if(m_Shuffle[x][y].m_State != Card.CARD_MATCHED) {

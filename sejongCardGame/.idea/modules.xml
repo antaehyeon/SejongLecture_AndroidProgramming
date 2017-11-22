@@ -3,9 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\Users\HYEON\Documents\SejongLecture_AndroidProgramming\sejongCardGame\app\app.iml" filepath="C:\Users\HYEON\Documents\SejongLecture_AndroidProgramming\sejongCardGame\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/sejongCardGame.iml" filepath="$PROJECT_DIR$/sejongCardGame.iml" />
-      <module fileurl="file://C:\Users\HYEON\Documents\SejongLecture_AndroidProgramming\sejongCardGame\sejongCardGame.iml" filepath="C:\Users\HYEON\Documents\SejongLecture_AndroidProgramming\sejongCardGame\sejongCardGame.iml" />
     </modules>
   </component>
 </project>

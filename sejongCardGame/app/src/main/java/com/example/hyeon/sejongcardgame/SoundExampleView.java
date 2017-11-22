@@ -19,9 +19,9 @@ public class SoundExampleView extends View {
         super(context);
 
         // 사운드 리소스 로딩
-        m_Sound_Background = MediaPlayer.create(context, R.raw.backgroundV2);
-        m_Sound_1 = MediaPlayer.create(context, R.raw.backgroundV2);
-        m_Sound_2 = MediaPlayer.create(context, R.raw.backgroundV2);
+        m_Sound_Background = MediaPlayer.create(context, R.raw.background_v2);
+        m_Sound_1 = MediaPlayer.create(context, R.raw.background_v2);
+        m_Sound_2 = MediaPlayer.create(context, R.raw.background_v2);
 
         m_Sound_Background.start();
     }
