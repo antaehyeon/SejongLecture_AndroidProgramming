@@ -10,6 +10,7 @@ public class MainActivity extends AppCompatActivity {
 
     Button runServiceButton;
     Button runBroadCastButton;
+    Button runEventHandlingButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,5 +34,14 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        runEventHandlingButton = (Button) findViewById(R.id.btn_eventHandling);
+        runEventHandlingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), EventHandlingActivity.class));
+            }
+        });
+
     } // FUNCTION - onCreate
 }
