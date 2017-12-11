@@ -1,7 +1,10 @@
 package com.example.hyeon.sejonglectureandroidprogramming;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +16,20 @@ public class MainActivity extends AppCompatActivity {
     Button runBroadCastButton;
     Button runEventHandlingButton;
     Button runFocusButton;
+    Button runToastButton;
+    Button runDialogButton;
+    Button runProgressBarButton;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (resultCode) {
+            case 1:
+        } // FUNCTION - onCreate
+
+        Toast.makeText(this, "" + data.getStringExtra("name"), Toast.LENGTH_SHORT).show();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,14 +71,29 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-    } // FUNCTION - onCreate
+        runToastButton = (Button) findViewById(R.id.btn_toast);
+        runToastButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), ToastActivity.class));
+            }
+        });
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (resultCode) {
-            case 1:
-                Toast.makeText(this, "" + data.getStringExtra("name"), Toast.LENGTH_SHORT).show();
-        } // switch
+        runDialogButton = (Button) findViewById(R.id.btn_Dialog);
+        runDialogButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), DialogActivity.class));
+            }
+        });
+
+        runProgressBarButton = (Button) findViewById(R.id.btn_progrssBar);
+        runProgressBarButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), ProgressBarActivity.class));
+            }
+        });
+
     }
 }

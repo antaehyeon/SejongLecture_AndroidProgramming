@@ -1,9 +1,7 @@
 package com.example.hyeon.sejongcardgame;
 
 import android.app.Activity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.ImageView;
 
 public class ImageExample extends Activity {
 
