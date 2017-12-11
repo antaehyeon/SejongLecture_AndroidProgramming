@@ -36,7 +36,7 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".EventHandlingActivity"></activity>
+        <activity android:name=".EventHandlingActivity" />
     </application>
 
 </manifest>
