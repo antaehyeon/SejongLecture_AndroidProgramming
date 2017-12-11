@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     Button runDialogButton;
     Button runProgressBarButton;
     Button runFragmentButton;
+    Button runImageFragmentButton;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -101,6 +102,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), FragmentActivity.class));
+            }
+        });
+
+        runImageFragmentButton = (Button) findViewById(R.id.btn_imageFragment);
+        runImageFragmentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), ImageViewFragmentActivity.class));
             }
         });
 

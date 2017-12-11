@@ -41,7 +41,8 @@
         <activity android:name=".ToastActivity" />
         <activity android:name=".DialogActivity" />
         <activity android:name=".ProgressBarActivity" />
-        <activity android:name=".FragmentActivity"></activity>
+        <activity android:name=".FragmentActivity" />
+        <activity android:name=".ImageViewFragmentActivity"></activity>
     </application>
 
 </manifest>

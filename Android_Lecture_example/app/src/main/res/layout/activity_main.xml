@@ -63,6 +63,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Fragment"/>
+
+            <Button
+                android:id="@+id/btn_imageFragment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="IMG Fragment"/>
         </TableRow>
     </TableLayout>
 
