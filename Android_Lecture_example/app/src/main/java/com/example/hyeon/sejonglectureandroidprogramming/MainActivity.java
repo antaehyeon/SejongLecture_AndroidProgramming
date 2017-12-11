@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     Button runToastButton;
     Button runDialogButton;
     Button runProgressBarButton;
+    Button runFragmentButton;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -92,6 +93,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), ProgressBarActivity.class));
+            }
+        });
+
+        runFragmentButton = (Button) findViewById(R.id.btn_fragment);
+        runFragmentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), FragmentActivity.class));
             }
         });
 
