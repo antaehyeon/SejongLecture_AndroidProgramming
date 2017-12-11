@@ -1,11 +1,14 @@
 package com.example.hyeon.sejonglectureandroidprogramming;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.GestureDetector;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class EventHandlingActivity extends AppCompatActivity {
 
@@ -95,4 +98,22 @@ public class EventHandlingActivity extends AppCompatActivity {
         textView.append(data + "\n");
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        if(keyCode == KeyEvent.KEYCODE_BACK) {
+            Toast.makeText(this, "시스템 BACK버튼이 눌렸습니다", Toast.LENGTH_SHORT).show();
+            close();
+            return true;
+        }
+
+        return super.onKeyDown(keyCode, event);
+    } // onKeyDown
+
+    private void close() {
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra("name", "mike");
+        setResult(1, resultIntent);
+        finish();
+    }
 }

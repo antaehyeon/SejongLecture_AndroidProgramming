@@ -37,6 +37,7 @@
         </receiver>
 
         <activity android:name=".EventHandlingActivity" />
+        <activity android:name=".FocusActivity"></activity>
     </application>
 
 </manifest>

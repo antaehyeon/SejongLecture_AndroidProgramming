@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,9 +40,19 @@ public class MainActivity extends AppCompatActivity {
         runEventHandlingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), EventHandlingActivity.class));
+//                startActivity(new Intent(getApplicationContext(), EventHandlingActivity.class));
+                startActivityForResult(new Intent(getApplicationContext(), EventHandlingActivity.class), 0);
             }
         });
 
     } // FUNCTION - onCreate
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (resultCode) {
+            case 1:
+                Toast.makeText(this, "" + data.getStringExtra("name"), Toast.LENGTH_SHORT).show();
+        } // switch
+    }
 }
